@@ -1,69 +1,52 @@
-var express = require('express');
-var app = express();
-var http = require('http');
-var fs = require("fs");
-var childProcess = require('child_process');
+//  OpenShift sample Node application
+var express = require('express'),
+    app     = express(),
+    morgan  = require('morgan'),
+    childProcess = require('child_process');
 
-var http = require('http');
+Object.assign=require('object-assign')
 
-var nStatic = require('node-static');
+app.engine('html', require('ejs').renderFile);
+app.use(morgan('combined'))
+app.use(express.static(__dirname + ''));
 
-var fileServer = new nStatic.Server('./');
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
-http.createServer(function (req, res) {
-console.log(req.url);
-  if(req.url === "/index.html"){
+
+app.get('/index', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  if(req.url === "/index"){
     runScript('assets/bin/nomad.js', function (err) {
     if (err) throw err;
-      console.log('finished running some-script.js');
+      console.log('finished running nomad.js');
     });
 
   }
-  fileServer.serve(req, res);
+    res.render('index.html', { pageCountMessage : null});
+
+});
+
+app.get('/', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  res.send('Welcome!');
+});
+
+// error handling
+app.use(function(err, req, res, next){
+  console.error(err.stack);
+  res.status(500).send('Something bad happened!');
+});
 
 
 
+app.listen(port, ip);
+console.log('Server running on http://%s:%s', ip, port);
 
-}).listen(5000);
+module.exports = app ;
 
-// http.createServer(function(request, response) {
-//
-// 	if(request.url === "/index"){
-//     runScript('assets/bin/nomad.js', function (err) {
-//     if (err) throw err;
-//       console.log('finished running some-script.js');
-//     });
-// 		sendFileContent(response, "index.html", "text/html");
-// 	}
-// 	else if(request.url === "/"){
-// 		response.writeHead(200, {'Content-Type': 'text/html'});
-// 		response.write('<b>Hey there!</b><br /><br />This is the default response. Requested URL is: ' + request.url);
-// 	}
-// 	else if(/^\/[a-zA-Z0-9\/]*.js$/.test(request.url.toString())){
-// 		sendFileContent(response, request.url.toString().substring(1), "text/javascript");
-// 	}
-// 	else if(/^\/[a-zA-Z0-9\/]*.css$/.test(request.url.toString())){
-// 		sendFileContent(response, request.url.toString().substring(1), "text/css");
-// 	}
-// 	else{
-// 		console.log("Requested URL is: " + request.url);
-// 		response.end();
-// 	}
-// }).listen(3000);
-
-function sendFileContent(response, fileName, contentType){
-	fs.readFile(fileName, function(err, data){
-		if(err){
-			response.writeHead(404);
-			response.write("Not Found!");
-		}
-		else{
-			response.writeHead(200, {'Content-Type': contentType});
-			response.write(data);
-		}
-		response.end();
-	});
-}
 
 function runScript(scriptPath, callback) {
 
