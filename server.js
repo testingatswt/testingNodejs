@@ -26,7 +26,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 app.get('/run-script', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
-  if(req.url === "/index"){
+  if(req.url === "/run-script"){
     runScript('views/nomad.js', function (err) {
     if (err) throw err;
       console.log('finished running nomad.js');
