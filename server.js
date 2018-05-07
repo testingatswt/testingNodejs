@@ -10,8 +10,12 @@ app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
 app.use(express.static(__dirname + ''));
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+// var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+//     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
+var port = process.env.OPENSHIFT_NODEJS_PORT ,
+    ip   =  process.env.OPENSHIFT_NODEJS_IP ;
+
 
 
 app.get('/index', function (req, res) {
