@@ -23,7 +23,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 
 
 
-app.get('/index', function (req, res) {
+app.get('/run-script', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if(req.url === "/index"){
@@ -33,14 +33,14 @@ app.get('/index', function (req, res) {
     });
 
   }
-    res.render('index.html', { pageCountMessage : null});
+    res.render('index.html');
 
 });
 
-app.get('/', function (req, res) {
+app.get('/getnomad-data', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
-  res.send('Welcome!');
+  res.render('whereamii.html');
 });
 
 // error handling
