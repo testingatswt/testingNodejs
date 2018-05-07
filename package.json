@@ -4,10 +4,18 @@
   "scripts": {
     "start": "node server.js"
   },
+  "main": "server.js",
   "dependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
     "cheerio": "^1.0.0-rc.2",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
     "got": "^8.3.1",
-    "node-static": "^0.7.10"
+    "mocha": "^2.4.5",
+    "mongodb": "^2.1.16",
+    "morgan": "^1.9.0",
+    "node-static": "^0.7.10",
+    "object-assign": "^4.1.0"
   }
 }
