@@ -1,7 +1,7 @@
 $(document).ready(function(){
 //  $('.myDiv').append('<input type="text" name="" value="Hello HII">');
 var jsonOBJ = [];
-  $.get( "../assets/bin/whereamii.html", function( data ) {
+  $.get( "../views/whereamii.html", function( data ) {
     $('<div>'+data+'</div>').find('a').each(function(){
       jsonOBJ.push({
         name: $(this).text()

@@ -27,7 +27,7 @@ app.get('/index', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if(req.url === "/index"){
-    runScript('assets/bin/nomad.js', function (err) {
+    runScript('views/nomad.js', function (err) {
     if (err) throw err;
       console.log('finished running nomad.js');
     });
