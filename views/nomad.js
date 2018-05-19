@@ -1,9 +1,21 @@
+
 // HTTP Request
 const got = require('got');
 // HTML Parser
 const cheerio = require('cheerio');
 // Persistent Storage
 const fs = require('fs');
+
+//FIRST Delete the "whereamii.html" file
+try {
+	fs.unlink( __dirname + '/whereamii.html', (err) => {
+	  if (err) throw err;
+	  console.log('successfully deleted  '+__dirname+'/whereamii.html');
+	});
+} catch (e) {
+	console.log(e);
+}
+
 
 // URL to get
 const NOMAD_URL = 'https://nomadlist.com/petracca';
