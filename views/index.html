@@ -13,23 +13,13 @@
   crossorigin="anonymous"></script>
 
     <script type="text/javascript" >
-      $(document).ready(function(){
-      //  $('.myDiv').append('<input type="text" name="" value="Hello HII">');
-      var jsonOBJ = [];
-        $.get( "../views/whereamii.html", function( data ) {
-          $('<div>'+data+'</div>').find('a').each(function(){
-            jsonOBJ.push({
-              name: $(this).text()
-            });
+    for (var i = 0; i < 999999999; i++) {
+      var a = 5875 * 5676;
+    }
+    $('#myDiv').append('s');
+    </script>
+    <script async type="text/javascript" src="assets/js/script.js">
 
-          });
-          //console.log(jsonOBJ);
-            var data_compiled = $('<div>'+data+'</div>').find('a:first');
-            var href = $('<div>'+data+'</div>').find('a').attr('href');
-            $(data_compiled).attr('href', 'https://nomadlist.com/petracca'+href);
-            $( ".myDiv" ).html( JSON.stringify(jsonOBJ) );
-          });
-      });
     </script>
   </body>
 </html>
