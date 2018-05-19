@@ -2,6 +2,7 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan'),
+    fs = require('fs'),
     childProcess = require('child_process');
 
 Object.assign=require('object-assign')
@@ -26,7 +27,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 app.get('/run-script', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
-  console.log(req.sessionID);
+  //console.log(req.sessionID);
   if(req.url === "/run-script"){
     runScript('views/nomad.js', function (err) {
     if (err) throw err;
@@ -34,14 +35,16 @@ app.get('/run-script', function (req, res) {
     });
 
   }
-    res.render('index.html');
+  var file = fs.readFileSync( __dirname + '/views/whereamii.html','utf8');
+  res.end(file);
+    //res.render('index.html');
 
 });
 
 app.get('/getnomad-data', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
-  console.log(req.sessionID);
+  //console.log(req.sessionID);
   res.render('whereamii.html');
 });
 
