@@ -32,4 +32,4 @@ got(NOMAD_URL).then((response) => {
 	const suffix = '</div>';
 
 	return $(selector).html();
-}).then((data) => fs.writeFile(save, data));
+}).then((data) => fs.writeFile(save, data, (error) => { /* handle error */ }));

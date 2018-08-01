@@ -36,7 +36,7 @@ app.get('/run-script', function (req, res) {
 
   }
   var file = fs.readFileSync( __dirname + '/views/whereamii.html','utf8');
-  res.end(file);
+  res.send(file);
     //res.render('index.html');
 
 });
